@@ -3,6 +3,8 @@
 <?php 
 
 
+//creating instance of User
+
 $user = new User;
 
  ?>
@@ -30,6 +32,8 @@ $user = new User;
 		<div class="card">
 			<div class="card-body">
 				<h2>All Data</h2>
+
+				<a class="btn btn-primary" href="index.php">Add User</a>
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -37,7 +41,7 @@ $user = new User;
 							<th>Name</th>
 							<th>Email</th>
 							<th>Cell</th>
-							<th>Photo</th>
+							<th>uname</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -46,9 +50,14 @@ $user = new User;
 
 <?php 
 
+    /*
+          Fetch Data from Users table
+
+    */
+
 
 $show = $user -> showingUsers();
-
+$i = 1;
 while ($data = $show -> fetch_assoc()):
 
 
@@ -63,16 +72,14 @@ while ($data = $show -> fetch_assoc()):
 
 
 						<tr>
-							<td>1</td>
+							<td><?php echo $i++; ?></td>
 							<td><?php echo $data['name']; ?></td>
 							<td><?php echo $data['email']; ?></td>
 							<td><?php echo $data['cell']; ?></td>
 							<td><?php echo $data['uname']; ?></td>
-							<td><img src="assets/media/img/pp_photo/istockphoto-615279718-612x612.jpg" alt=""></td>
 							<td>
-								<a class="btn btn-sm btn-info" href="#">View</a>
-								<a class="btn btn-sm btn-warning" href="#">Edit</a>
-								<a class="btn btn-sm btn-danger" href="#">Delete</a>
+								<a class="btn btn-sm btn-info" href="profile.php?id=<?php echo $data['id'];?>">View</a>
+								<a class="btn btn-sm btn-danger" href="delete.php?id=<?php echo $data['id']; ?>">Delete</a>
 							</td>
 						</tr>
 						

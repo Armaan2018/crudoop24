@@ -2,7 +2,10 @@
 
 
 
+    /*
+          creating instance for Database
 
+    */
 
 
 abstract class DB 

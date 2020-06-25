@@ -27,15 +27,34 @@ $user = new User;
 	
          <?php 
 
-           if (isset($_POST['submit'])) {
+/*
+
+Get ID from the user
+
+*/
+
+   if (isset($_GET['id'])) {
+   	$userid = (int)$_GET['id'];
+   }
+
+         
+
+           if (isset($_POST['update'])) {
+
               $name = $_POST['name'];
               $email = $_POST['email'];
               $cell = $_POST['cell'];
               $uname = $_POST['uname'];
 
-              $reg = $user -> registerUser($name,$email,$cell,$uname);
-           }
+              /*
+                     method for updating user
+                   
+              */              
+              $reg = $user -> upadateUser($name,$email,$cell,$uname,$userid);
 
+
+
+           }
 
 
 
@@ -50,28 +69,42 @@ $user = new User;
 	<div class="wrap shadow">
 		<div class="card">
 			<div class="card-body">
+<?php 
+
+    /*
+          Fetch Data from Users
+
+    */
+
+   $single = $user -> singleProfile($userid);
+   $row    = mysqli_fetch_assoc($single);
+
+
+ ?>
+
+
 
 				<a class="btn btn-primary block" href="table.php">ALL USERS</a>
 				<h2>Sign Up</h2>
-				<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+				<form action="<?php echo $_SERVER['PHP_SELF'] ?>?id=<?php echo $userid; ?>" method="POST">
 					<div class="form-group">
 						<label for="">Name</label>
-						<input name="name" class="form-control" type="text">
+						<input name="name" class="form-control" value="<?php echo $row['name']; ?>" type="text">
 					</div>
 					<div class="form-group">
 						<label for="">Email</label>
-						<input name="email" class="form-control" type="text">
+						<input name="email" class="form-control" value="<?php echo $row['email']; ?>" type="text">
 					</div>
 					<div class="form-group">
 						<label for="">Cell</label>
-						<input name="cell" class="form-control" type="text">
+						<input name="cell" class="form-control" value="<?php echo $row['cell']; ?>" type="text">
 					</div>
 					<div class="form-group">
 						<label for="">Username</label>
-						<input name="uname" class="form-control" type="text">
+						<input name="uname" class="form-control" value="<?php echo $row['uname']; ?>" type="text">
 					</div>
 					<div class="form-group">
-						<input class="btn btn-primary" name="submit" type="submit" value="Sign Up">
+						<input class="btn btn-primary" name="update" type="submit" value="Update">
 					</div>
 				</form>
 			</div>
